@@ -1,6 +1,8 @@
 package kondratkov.ermineapps.observerapp.view.maplabels;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -20,6 +22,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
@@ -34,6 +41,9 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
 import java.util.Date;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import kondratkov.ermineapps.observerapp.MyApplication;
 import kondratkov.ermineapps.observerapp.R;
 import kondratkov.ermineapps.observerapp.view.addlabel.AddLabelActivity;
@@ -42,6 +52,15 @@ public class MapLabelsActivity extends AppCompatActivity {
 
     private MapView mapView;
     MyPositionLocation mMyPositionLocation;
+    ValueAnimator mAnimator;
+
+    private boolean FAB_Status = false;
+    Animation anim_show_fab, anim_show_buttons;
+    Animation anim_hide_fab, anim_hide_buttons;
+
+    @BindView(R.id.linearLayoutMapLabel)LinearLayout linearLayoutMapLabel;
+    @BindView(R.id.fabMapLabel) FloatingActionButton fabMapLabel;
+    @BindView(R.id.linearLayoutMapLabelButtons) LinearLayout linearLayoutMapLabelButtons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +70,8 @@ public class MapLabelsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ButterKnife.bind(this);
+
         MyApplication.getInstance().getNavigationViewMyApp().setAppCompatActivity(MapLabelsActivity.this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -59,18 +80,15 @@ public class MapLabelsActivity extends AppCompatActivity {
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabMapLabel);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MapLabelsActivity.this, AddLabelActivity.class);
-                startActivity(intent);
-            }
-        });
 
         Mapbox.getInstance(this, getString(R.string.token_map));
 
         mMyPositionLocation = new MyPositionLocation(MapLabelsActivity.this);
+
+        anim_show_fab = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_show);
+        anim_hide_fab = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_hide);
+        anim_show_buttons = AnimationUtils.loadAnimation(getApplication(), R.anim.button_map_show);
+        anim_hide_buttons = AnimationUtils.loadAnimation(getApplication(), R.anim.button_map_hide);
 
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -91,9 +109,118 @@ public class MapLabelsActivity extends AppCompatActivity {
                 mapboxMap.addMarker(new MarkerOptions().position(new LatLng(48.13863, 11.57603)).title("ddDDD").snippet("wwwwwww"));
             }
         });
+
+        linearLayoutMapLabel.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+                    @Override
+                    public boolean onPreDraw() {
+                        linearLayoutMapLabel.getViewTreeObserver()
+                                .removeOnPreDrawListener(this);
+                        linearLayoutMapLabel.setVisibility(View.GONE);
+                        linearLayoutMapLabelButtons.setVisibility(View.GONE);
+
+                        final int widthSpec = View.MeasureSpec.makeMeasureSpec(
+                                0, View.MeasureSpec.UNSPECIFIED);
+                        final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+
+                        int d = linearLayoutMapLabel.getHeight();
+                        mAnimator = slideAnimator(0, linearLayoutMapLabel.getHeight()*2);//.getMeasuredHeight());
+
+                        linearLayoutMapLabel.measure(widthSpec, heightSpec);
+
+                        return true;
+                    }
+                }
+        );
+
+    }
+
+    @OnClick(R.id.fabMapLabel)
+    public void onClickFab(View view){
+        expand();
+
+//        if (linearLayoutMapLabel.getVisibility() == View.GONE) {
+//            expand();
+//        } else {
+//
+//        }
+    }
+
+    @OnClick(R.id.buttonMapLabelYes)
+    public void onClickButtonYes(View view){
+
+    }
+
+    @OnClick(R.id.buttonMapLabelCancel)
+    public void onClickButtonCancel(View view){
+        collapse();
+    }
+
+    private void expand() {
+        // set Visible
+        linearLayoutMapLabel.setVisibility(View.VISIBLE);
+
+        fabMapLabel.startAnimation(anim_hide_fab);
+        linearLayoutMapLabelButtons.startAnimation(anim_show_buttons);
+        fabMapLabel.setVisibility(View.GONE);
+        fabMapLabel.setClickable(false);
+        linearLayoutMapLabelButtons.setVisibility(View.VISIBLE);
+
+        mAnimator.start();
+    }
+
+    private void collapse() {
+
+        int finalHeight = linearLayoutMapLabel.getHeight();
+
+        ValueAnimator mAnimator = slideAnimator(finalHeight, 0);
+
+        mAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                // Height=0, but it set visibility to GONE
+                linearLayoutMapLabel.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationStart(Animator animator) {
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+            }
+        });
+        mAnimator.start();
+        fabMapLabel.startAnimation(anim_show_fab);
+        linearLayoutMapLabelButtons.startAnimation(anim_hide_buttons);
+        fabMapLabel.setVisibility(View.VISIBLE);
+        fabMapLabel.setClickable(true);
+        linearLayoutMapLabelButtons.setVisibility(View.GONE);
     }
 
 
+    private ValueAnimator slideAnimator(int start, int end) {
+
+        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                // Update Height
+                int value = (Integer) valueAnimator.getAnimatedValue();
+
+                ViewGroup.LayoutParams layoutParams = linearLayoutMapLabel
+                        .getLayoutParams();
+                layoutParams.height = value;
+                linearLayoutMapLabel.setLayoutParams(layoutParams);
+            }
+        });
+        return animator;
+    }
 
 
 

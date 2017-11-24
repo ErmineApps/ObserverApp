@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import kondratkov.ermineapps.observerapp.R;
 import kondratkov.ermineapps.observerapp.view.maplabels.MapLabelsActivity;
 import kondratkov.ermineapps.observerapp.view.profile.ProfileActivity;
+import kondratkov.ermineapps.observerapp.view.setting.SettingActivity;
 
 /**
  * Created by kondratkov on 19.11.2017.
@@ -51,7 +52,8 @@ public class NavigationViewMyApp implements NavigationView.OnNavigationItemSelec
 //            mAppCompatActivity.startActivity(intent);
 //            mAppCompatActivity.finish();
         }else if (id == R.id.nav_settings) {
-
+            Intent intent = new Intent(mAppCompatActivity, SettingActivity.class);
+            mAppCompatActivity.startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) mAppCompatActivity.findViewById(R.id.drawer_layout);
