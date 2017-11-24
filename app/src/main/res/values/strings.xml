@@ -19,4 +19,15 @@
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_setting">SettingActivity</string>
 
+    <string name="alcohol_drinking">распитие алкоголя</string>
+    <string name="hooliganism">хулиганство</string>
+    <string name="fight">драка</string>
+    <string name="crime">преступление</string>
+    <string name="wrong_parking">не правильная парковка</string>
+    <string name="loud_music">громкая музыка</string>
+    <string name="suspicious_object">подозрительный предмет</string>
+    <string name="vandalism">вандализм</string>
+    <string name="other">другое</string>
+
+
 </resources>
