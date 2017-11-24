@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">ObserverApp</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_profile">профиль</string>
+    <string name="menu_map">карта</string>
+    <string name="menu_references">обращения</string>
+    <string name="menu_settings">настройки</string>
+    <string name="menu_other">другое</string>
+
+    <string name="title_activity_map_labels">MapLabelsActivity</string>
+    <string name="token_map">pk.eyJ1Ijoia29uZHJhdGtvdiIsImEiOiJjamE3ZzFtY3hiMGx0MnFsZzVvbnJhbmRkIn0.IM6EXYHiivmo8_mxz40YFw</string>
+    <string name="title_activity_references_list">ReferencesListActivity</string>
+    <string name="title_activity_add_label">Map</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+
+</resources>

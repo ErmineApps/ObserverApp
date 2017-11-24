@@ -1,0 +1,26 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=84:28:78:4F:45:17:52:00:7C:BE:EB:AE:E0:12:1E:17:A5:5E:B6:3E%3Bkondratkov.ermineapps.observerapp.view.addlabel
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    84:28:78:4F:45:17:52:00:7C:BE:EB:AE:E0:12:1E:17:A5:5E:B6:3E
+
+    SHA-1 certificate fingerprint:
+    84:28:78:4F:45:17:52:00:7C:BE:EB:AE:E0:12:1E:17:A5:5E:B6:3E
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        YOUR_KEY_HERE
+    </string>
+</resources>
