@@ -29,6 +29,18 @@
     <string name="vandalism">вандализм</string>
     <string name="other">другое</string>
 
+    <string-array name="array_violations">
+        <item>распитие алкоголя</item>
+        <item>хулиганство</item>
+        <item>драка</item>
+        <item>преступление</item>
+        <item>не правильная парковка</item>
+        <item>громкая музыка</item>
+        <item>подозрительный предмет</item>
+        <item>вандализм</item>
+        <item>другое</item>
+    </string-array>
+
     <string name="ok">принять</string>
     <string name="cancel">отмена</string>
     

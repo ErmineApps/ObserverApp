@@ -11,9 +11,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/ObserverNewTheme">
         <activity
             android:name=".view.MainActivity"
             android:label="@string/app_name"
@@ -27,7 +27,7 @@
         <activity
             android:name=".view.maplabels.MapLabelsActivity"
             android:label="@string/title_activity_map_labels"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/ObserverNewTheme">
         </activity>
         <activity
             android:name=".view.references.ReferencesListActivity"

@@ -27,7 +27,7 @@
         android:weightSum="1">
 
         <LinearLayout
-            android:id="@+id/linearLayoutMapLabel"
+            android:id="@+id/linearLayout_mapLabel_add"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
@@ -58,7 +58,7 @@
                             android:orientation="horizontal">
 
                             <ImageButton
-                                android:id="@+id/imageButton_alcohol_drinking"
+                                android:id="@+id/imageButton_mapLabel_alcohol_drinking"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -67,7 +67,7 @@
                                 mapbox:srcCompat="@drawable/ic_menu_slideshow"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton_hooliganism"
+                                android:id="@+id/imageButton_mapLabel_hooliganism"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -76,7 +76,7 @@
                                 mapbox:srcCompat="@drawable/ic_menu_share"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton_fight"
+                                android:id="@+id/imageButton_mapLabel_fight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -85,7 +85,7 @@
                                 mapbox:srcCompat="@drawable/ic_menu_send"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton_crime"
+                                android:id="@+id/imageButton_mapLabel_crime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -94,7 +94,7 @@
                                 mapbox:srcCompat="@drawable/ic_menu_slideshow"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton_wrong_parking"
+                                android:id="@+id/imageButton_mapLabel_wrong_parking"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -103,7 +103,7 @@
                                 mapbox:srcCompat="@drawable/ic_menu_share"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton_loud_music"
+                                android:id="@+id/imageButton_mapLabel_loud_music"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -112,7 +112,7 @@
                                 mapbox:srcCompat="@drawable/ic_menu_send"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton_suspicious_object"
+                                android:id="@+id/imageButton_mapLabel_suspicious_object"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -121,7 +121,7 @@
                                 mapbox:srcCompat="@drawable/ic_menu_manage"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton_vandalism"
+                                android:id="@+id/imageButton_mapLabel_vandalism"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -130,7 +130,7 @@
                                 mapbox:srcCompat="@drawable/ic_menu_gallery"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton_other"
+                                android:id="@+id/imageButton_mapLabel_other"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -142,7 +142,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/textViewMapLabelType"
+                    android:id="@+id/textView_mapLabel_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -163,7 +163,7 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/editTextMapLabelBody"
+                            android:id="@+id/editText_mapLabel_body"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/common_google_signin_btn_text_dark_default"
@@ -196,7 +196,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayoutMapLabelButtons"
+        android:id="@+id/linearLayout_mapLabel_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -204,14 +204,14 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/buttonMapLabelYes"
+            android:id="@+id/button_mapLabel_yes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/ok"/>
 
         <Button
-            android:id="@+id/buttonMapLabelCancel"
+            android:id="@+id/button_mapLabel_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -4,8 +4,11 @@
     <color name="colorPrimaryDark">#303f9f</color>
     <color name="colorAccent">#ff4081</color>
 
-    <color name="colorButtonVolationMapYes">#54c72f</color>
+    <color name="colorButtonVolationMapYes">#fffefe</color>
     <color name="colorButtonVolationMapNo">#6b6a6a</color>
+    <color name="accent_material_light">#ec5154</color>
+    <color name="primary_dark_material_light">#3d2528</color>
+    <color name="primary_material_light">#583b3e</color>
 
 
 </resources>
