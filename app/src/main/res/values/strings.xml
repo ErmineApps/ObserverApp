@@ -29,5 +29,10 @@
     <string name="vandalism">вандализм</string>
     <string name="other">другое</string>
 
+    <string name="ok">принять</string>
+    <string name="cancel">отмена</string>
+    
+    <string name="leave_a_comment...">оставте комментарий....</string>
+
 
 </resources>

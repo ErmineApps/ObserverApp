@@ -5,10 +5,15 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -26,6 +31,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.mapbox.mapboxsdk.Mapbox;
@@ -39,7 +45,9 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,10 +65,22 @@ public class MapLabelsActivity extends AppCompatActivity {
     private boolean FAB_Status = false;
     Animation anim_show_fab, anim_show_buttons;
     Animation anim_hide_fab, anim_hide_buttons;
+    ImageButton[] mImageButtonArray;
 
     @BindView(R.id.linearLayoutMapLabel)LinearLayout linearLayoutMapLabel;
     @BindView(R.id.fabMapLabel) FloatingActionButton fabMapLabel;
+
     @BindView(R.id.linearLayoutMapLabelButtons) LinearLayout linearLayoutMapLabelButtons;
+    @BindView(R.id.imageButton_alcohol_drinking) ImageButton imageButton_alcohol_drinking;
+    @BindView(R.id.imageButton_hooliganism) ImageButton imageButton_hooliganism;
+    @BindView(R.id.imageButton_fight) ImageButton imageButton_fight;
+    @BindView(R.id.imageButton_crime) ImageButton imageButton_crime;
+    @BindView(R.id.imageButton_wrong_parking) ImageButton imageButton_wrong_parking;
+    @BindView(R.id.imageButton_loud_music) ImageButton imageButton_loud_music;
+    @BindView(R.id.imageButton_suspicious_object) ImageButton imageButton_suspicious_object;
+    @BindView(R.id.imageButton_vandalism) ImageButton imageButton_vandalism;
+    @BindView(R.id.imageButton_other) ImageButton imageButton_other;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +100,9 @@ public class MapLabelsActivity extends AppCompatActivity {
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        mImageButtonArray = new ImageButton[]{imageButton_alcohol_drinking, imageButton_hooliganism, imageButton_fight,
+                imageButton_crime, imageButton_wrong_parking, imageButton_loud_music, imageButton_suspicious_object,
+                imageButton_vandalism, imageButton_other};
 
         Mapbox.getInstance(this, getString(R.string.token_map));
 
@@ -138,12 +161,6 @@ public class MapLabelsActivity extends AppCompatActivity {
     @OnClick(R.id.fabMapLabel)
     public void onClickFab(View view){
         expand();
-
-//        if (linearLayoutMapLabel.getVisibility() == View.GONE) {
-//            expand();
-//        } else {
-//
-//        }
     }
 
     @OnClick(R.id.buttonMapLabelYes)
@@ -154,6 +171,32 @@ public class MapLabelsActivity extends AppCompatActivity {
     @OnClick(R.id.buttonMapLabelCancel)
     public void onClickButtonCancel(View view){
         collapse();
+    }
+
+    public void onClickButtonViolation(View view){
+        switch (view.getId()){
+            case R.id.imageButton_alcohol_drinking:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    newViolationTypeButton(mImageButtonArray[0]);
+                }
+                break;
+            case R.id.imageButton_hooliganism:
+                break;
+            case R.id.imageButton_fight:
+                break;
+            case R.id.imageButton_crime:
+                break;
+            case R.id.imageButton_wrong_parking:
+                break;
+            case R.id.imageButton_loud_music:
+                break;
+            case R.id.imageButton_suspicious_object:
+                break;
+            case R.id.imageButton_vandalism:
+                break;
+            case R.id.imageButton_other:
+                break;
+        }
     }
 
     private void expand() {
@@ -223,6 +266,18 @@ public class MapLabelsActivity extends AppCompatActivity {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void newViolationTypeButton(ImageButton imageButton){
+        for(ImageButton mImageButton1:mImageButtonArray){
+            if(mImageButton1 == imageButton){
+                ColorStateList colorStateList = ColorStateList.valueOf(Color.argb(12,12,12,12));
+                imageButton.setBackgroundTintList(colorStateList);
+            }else{
+                ColorStateList colorStateList = ColorStateList.valueOf(Color.argb(123,123,123,123));
+                imageButton.setBackgroundTintList(colorStateList);
+            }
+        }
+    }
 
     @Override
     public void onBackPressed() {

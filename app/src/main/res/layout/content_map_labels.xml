@@ -58,87 +58,96 @@
                             android:orientation="horizontal">
 
                             <ImageButton
-                                android:id="@+id/imageButton7"
+                                android:id="@+id/imageButton_alcohol_drinking"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:backgroundTint="@color/colorButtonVolationMapYes"
+                                android:onClick="onClickButtonViolation"
                                 mapbox:srcCompat="@drawable/ic_menu_slideshow"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton8"
+                                android:id="@+id/imageButton_hooliganism"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:backgroundTint="@color/colorButtonVolationMapNo"
+                                android:onClick="onClickButtonViolation"
                                 mapbox:srcCompat="@drawable/ic_menu_share"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton9"
+                                android:id="@+id/imageButton_fight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:backgroundTint="@color/colorButtonVolationMapNo"
+                                android:onClick="onClickButtonViolation"
                                 mapbox:srcCompat="@drawable/ic_menu_send"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton6"
+                                android:id="@+id/imageButton_crime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:backgroundTint="@color/colorButtonVolationMapNo"
+                                android:onClick="onClickButtonViolation"
                                 mapbox:srcCompat="@drawable/ic_menu_slideshow"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton5"
+                                android:id="@+id/imageButton_wrong_parking"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:backgroundTint="@color/colorButtonVolationMapNo"
+                                android:onClick="onClickButtonViolation"
                                 mapbox:srcCompat="@drawable/ic_menu_share"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton4"
+                                android:id="@+id/imageButton_loud_music"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:backgroundTint="@color/colorButtonVolationMapNo"
+                                android:onClick="onClickButtonViolation"
                                 mapbox:srcCompat="@drawable/ic_menu_send"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton3"
+                                android:id="@+id/imageButton_suspicious_object"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:backgroundTint="@color/colorButtonVolationMapNo"
+                                android:onClick="onClickButtonViolation"
                                 mapbox:srcCompat="@drawable/ic_menu_manage"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton2"
+                                android:id="@+id/imageButton_vandalism"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:backgroundTint="@color/colorButtonVolationMapNo"
+                                android:onClick="onClickButtonViolation"
                                 mapbox:srcCompat="@drawable/ic_menu_gallery"/>
 
                             <ImageButton
-                                android:id="@+id/imageButton"
+                                android:id="@+id/imageButton_other"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:backgroundTint="@color/colorButtonVolationMapNo"
+                                android:onClick="onClickButtonViolation"
                                 mapbox:srcCompat="@drawable/ic_menu_camera"/>
                         </LinearLayout>
                     </HorizontalScrollView>
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/textViewMapLabelType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="sdfgsfdgs"
+                    android:text="@string/alcohol_drinking"
                     android:textColor="@color/colorButtonVolationMapYes"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
@@ -154,14 +163,14 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/editText"
+                            android:id="@+id/editTextMapLabelBody"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/common_google_signin_btn_text_dark_default"
                             android:gravity="top"
+                            android:hint="@string/leave_a_comment..."
                             android:inputType="textMultiLine"
                             android:padding="5dp"
-                            android:text="Name"
                             android:textSize="15sp"/>
                     </LinearLayout>
                 </ScrollView>
@@ -199,14 +208,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button"/>
+            android:text="@string/ok"/>
 
         <Button
             android:id="@+id/buttonMapLabelCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button"/>
+            android:text="@string/cancel"/>
     </LinearLayout>
 
 </FrameLayout>
