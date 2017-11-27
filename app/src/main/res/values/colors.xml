@@ -10,5 +10,8 @@
     <color name="primary_dark_material_light">#3d2528</color>
     <color name="primary_material_light">#583b3e</color>
 
+    <color name="colorYes">#a2ec52</color>
+    <color name="colorNo">#ec5255</color>
+    <color name="colorFonItem">#dedede</color>
 
 </resources>

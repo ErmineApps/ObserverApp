@@ -11,7 +11,7 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewReferences"
+        android:id="@+id/recyclerView_references"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

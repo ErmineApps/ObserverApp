@@ -17,7 +17,7 @@
         <activity
             android:name=".view.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/ObserverNewTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -32,7 +32,7 @@
         <activity
             android:name=".view.references.ReferencesListActivity"
             android:label="@string/title_activity_references_list"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/ObserverNewTheme">
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -49,17 +49,22 @@
         <activity
             android:name=".view.addlabel.AddLabelActivity"
             android:label="@string/title_activity_add_label"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/ObserverNewTheme">
         </activity>
         <activity
             android:name=".view.profile.ProfileActivity"
             android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/ObserverNewTheme">
         </activity>
         <activity
             android:name=".view.setting.SettingActivity"
             android:label="@string/title_activity_setting"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/ObserverNewTheme">
+        </activity>
+        <activity
+            android:name=".view.violation.ViolationProfileActivity"
+            android:label="@string/title_activity_violation_profile"
+            android:theme="@style/ObserverNewTheme">
         </activity>
     </application>
 

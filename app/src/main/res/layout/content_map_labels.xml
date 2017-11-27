@@ -21,6 +21,32 @@
     </com.mapbox.mapboxsdk.maps.MapView>
 
     <LinearLayout
+        android:id="@+id/linearLayout_mapLabel_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_mapLabel_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorYes"
+            android:text="@string/ok"/>
+
+        <Button
+            android:id="@+id/button_mapLabel_cancel"
+            style="@style/Widget.AppCompat.Button.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorNo"
+            android:text="@string/cancel"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -178,10 +204,12 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="-1dp"
                 android:layout_weight="0.8"
-                android:background="@drawable/newlabel"
+                android:background="@drawable/ic_new_label_map"
                 android:orientation="vertical">
             </LinearLayout>
 
@@ -193,29 +221,6 @@
             android:layout_weight="0.5"
             android:orientation="vertical">
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout_mapLabel_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button_mapLabel_yes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/ok"/>
-
-        <Button
-            android:id="@+id/button_mapLabel_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/cancel"/>
     </LinearLayout>
 
 </FrameLayout>

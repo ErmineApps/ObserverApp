@@ -5,10 +5,12 @@
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_menu_camera"
+            android:iconTintMode="src_atop"
             android:title="@string/menu_profile"/>
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_menu_gallery"
+            android:iconTint="@color/colorNo"
             android:title="@string/menu_map"/>
         <item
             android:id="@+id/nav_references"

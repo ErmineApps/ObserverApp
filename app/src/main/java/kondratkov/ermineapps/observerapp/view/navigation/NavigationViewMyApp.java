@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import kondratkov.ermineapps.observerapp.R;
 import kondratkov.ermineapps.observerapp.view.maplabels.MapLabelsActivity;
 import kondratkov.ermineapps.observerapp.view.profile.ProfileActivity;
+import kondratkov.ermineapps.observerapp.view.references.ReferencesListActivity;
 import kondratkov.ermineapps.observerapp.view.setting.SettingActivity;
 
 /**
@@ -48,9 +49,9 @@ public class NavigationViewMyApp implements NavigationView.OnNavigationItemSelec
             mAppCompatActivity.startActivity(intent);
             mAppCompatActivity.finish();
         } else if (id == R.id.nav_references) {
-//            Intent intent = new Intent(mAppCompatActivity, BookingHistory.class);
-//            mAppCompatActivity.startActivity(intent);
-//            mAppCompatActivity.finish();
+            Intent intent = new Intent(mAppCompatActivity, ReferencesListActivity.class);
+            mAppCompatActivity.startActivity(intent);
+            mAppCompatActivity.finish();
         }else if (id == R.id.nav_settings) {
             Intent intent = new Intent(mAppCompatActivity, SettingActivity.class);
             mAppCompatActivity.startActivity(intent);

@@ -21,4 +21,8 @@
 
     <style name="ObserverNewTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
 
+    <style name="ObserverNewTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="ObserverNewTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
 </resources>

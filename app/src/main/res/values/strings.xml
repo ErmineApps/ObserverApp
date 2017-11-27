@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">ObserverApp</string>
+    <string name="app_name">Cозерцатель</string>
+    <string name="contemplator">Cозерцатель</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -43,8 +44,9 @@
 
     <string name="ok">принять</string>
     <string name="cancel">отмена</string>
-    
+
     <string name="leave_a_comment...">оставте комментарий....</string>
+    <string name="title_activity_violation_profile">ViolationProfileActivity</string>
 
 
 </resources>
