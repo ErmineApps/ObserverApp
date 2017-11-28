@@ -42,11 +42,24 @@
         <item>другое</item>
     </string-array>
 
+    <string-array name="array_violations_enum">
+        <item>alcohol_drinking</item>
+        <item>hooliganism</item>
+        <item>fight</item>
+        <item>crime</item>
+        <item>wrong_parking</item>
+        <item>loud_music</item>
+        <item>suspicious_object</item>
+        <item>vandalism</item>
+        <item>other</item>
+    </string-array>
+
     <string name="ok">принять</string>
     <string name="cancel">отмена</string>
 
     <string name="leave_a_comment...">оставте комментарий....</string>
     <string name="title_activity_violation_profile">ViolationProfileActivity</string>
+    <string name="title_activity_image_violation">ImageViolationActivity</string>
 
 
 </resources>

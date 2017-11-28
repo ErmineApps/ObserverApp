@@ -15,7 +15,7 @@ import java.util.Date;
 
 public class DataTimePepresentation {
 
-    public String getData_ddMMyyyy(@NonNull String dateString1, Context context) throws Exception{
+    public static String getData_ddMMyyyy(@NonNull String dateString1, Context context) throws Exception{
 
         String dated = dateString1.substring(0,10)+" "+dateString1.substring(11,19);
 
@@ -28,7 +28,7 @@ public class DataTimePepresentation {
         return mediumDateFormat.format(date);
     }
 
-    public String getData_HHmm(@NonNull String dateString1, Context context) throws Exception{
+    public static String getData_HHmm(@NonNull String dateString1, Context context) throws Exception{
 
         String dated = dateString1.substring(0,10)+" "+dateString1.substring(11,19);
 
@@ -41,7 +41,7 @@ public class DataTimePepresentation {
         return mediumDateFormat.format(date);
     }
 
-    public String dateDisplayFormat(String sDate, Context context){
+    public static String dateDisplayFormat(String sDate, Context context){
         String sDateDisplay="";
         long feedTime=0;
         long myTime = System.currentTimeMillis();
@@ -75,26 +75,26 @@ public class DataTimePepresentation {
         return sDateDisplay;
     }
 
-    public String getDate_date_ddMMyyyy(@NonNull Date date, Context context) throws Exception{
+    public static String getDate_date_ddMMyyyy(@NonNull Date date, Context context) throws Exception{
 
         java.text.DateFormat mediumDateFormat = DateFormat.getMediumDateFormat(context);
 
         return mediumDateFormat.format(date);
     }
 
-    public String getDate_date_HHmm(@NonNull Date date, Context context) throws Exception{
+    public static String getDate_date_HHmm(@NonNull Date date, Context context) throws Exception{
 
         java.text.DateFormat mediumDateFormat = DateFormat.getTimeFormat(context);
 
         return mediumDateFormat.format(date);
     }
 
-    public String getDateToString(Date date){
+    public static String getDateToString(Date date){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return dateFormat.format(date);
     }
 
-    public Date getStringToDate(@NonNull String dateString1) {
+    public static Date getStringToDate(@NonNull String dateString1) {
         String dated = dateString1.substring(0,10)+" "+dateString1.substring(11,19);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = null;
@@ -106,7 +106,7 @@ public class DataTimePepresentation {
         return date;
     }
 
-    public String getData_long_HHmm(@NonNull long dateL, Context context) throws Exception{
+    public static String getData_long_HHmm(@NonNull long dateL, Context context) throws Exception{
         Date date = new Date(dateL);
         java.text.DateFormat mediumDateFormat = DateFormat.getMediumDateFormat(context);
 

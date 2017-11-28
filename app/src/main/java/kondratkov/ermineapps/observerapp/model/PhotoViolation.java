@@ -1,14 +1,18 @@
 package kondratkov.ermineapps.observerapp.model;
 
+import android.media.Image;
+
+import java.io.File;
+
 /**
  * Created by kondratkov on 26.11.2017.
  */
 
 public class PhotoViolation {
 
-    public int Id;
-    public int Violation_id;
-    public byte[] Photo;
+    private int Id;
+    private int Violation_id;
+    private File Photo;
 
     public int getId() {
         return Id;
@@ -26,11 +30,11 @@ public class PhotoViolation {
         Violation_id = violation_id;
     }
 
-    public byte[] getPhoto() {
+    public File getPhoto() {
         return Photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(File photo) {
         Photo = photo;
     }
 }

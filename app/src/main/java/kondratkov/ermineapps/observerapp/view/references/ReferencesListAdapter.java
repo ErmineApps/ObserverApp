@@ -1,6 +1,7 @@
 package kondratkov.ermineapps.observerapp.view.references;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import kondratkov.ermineapps.observerapp.model.Violation;
 import kondratkov.ermineapps.observerapp.R;
+import kondratkov.ermineapps.observerapp.view.violation.ViolationProfileActivity;
 
 /**
  * Created by kondratkov on 25.11.2017.
@@ -39,6 +41,9 @@ public class ReferencesListAdapter extends RecyclerView.Adapter<ReferencesListHo
         holder.setClickListener(new ReferencesListClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
+                Intent intent = new Intent(mContext, ViolationProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);;
+                intent.putExtra("id_violation", mViolations.get(position).getId());
+                mContext.startActivity(intent);
                 Toast.makeText(mContext, "# (Long click)", Toast.LENGTH_SHORT).show();
             }
         });

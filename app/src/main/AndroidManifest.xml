@@ -66,6 +66,13 @@
             android:label="@string/title_activity_violation_profile"
             android:theme="@style/ObserverNewTheme">
         </activity>
+        <activity
+            android:name=".view.imageviolation.ImageViolationActivity"
+            android:label="@string/title_activity_image_violation"
+            android:theme="@style/ObserverNewTheme">
+        </activity>
+        <activity android:name=".view.violation.ViolationAddMessageActivity">
+        </activity>
     </application>
 
 </manifest>

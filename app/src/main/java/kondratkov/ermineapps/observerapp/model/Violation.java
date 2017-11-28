@@ -10,6 +10,7 @@ public class Violation {
     private double Rating;
     private int User_id;
     private String User_name;
+    private String Address;
     private int Like;
     private int Dislaid;
     private String Date;
@@ -114,6 +115,14 @@ public class Violation {
 
     public void setBody_observation(String body_observation) {
         Body_observation = body_observation;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
     }
 }
 

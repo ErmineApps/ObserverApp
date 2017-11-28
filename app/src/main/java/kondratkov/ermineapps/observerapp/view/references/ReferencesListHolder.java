@@ -1,11 +1,15 @@
 package kondratkov.ermineapps.observerapp.view.references;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -13,6 +17,7 @@ import butterknife.ButterKnife;
 import kondratkov.ermineapps.observerapp.R;
 import kondratkov.ermineapps.observerapp.model.Violation;
 import kondratkov.ermineapps.observerapp.representation.DataTimePepresentation;
+import kondratkov.ermineapps.observerapp.representation.TypeViolationToString;
 
 /**
  * Created by kondratkov on 25.11.2017.
@@ -40,15 +45,26 @@ public class ReferencesListHolder extends RecyclerView.ViewHolder implements Vie
     }
 
     public void bind(@NonNull Violation violation) {
-        DataTimePepresentation mDataTimePepresentation = new DataTimePepresentation();
+
         try {
-            textView_item_references_type.setText(violation.getType_violation());
-            textView_item_references_date.setText(mDataTimePepresentation.dateDisplayFormat("2017-11-27T02:11:25", itemView.getContext()));
+            textView_item_references_type.setText(
+                    TypeViolationToString.typeToString(violation.getType_violation(),
+                            itemView.getResources().getStringArray(R.array.array_violations_enum),
+                            itemView.getResources().getStringArray(R.array.array_violations)));
+            textView_item_references_date.setText(DataTimePepresentation.dateDisplayFormat("2017-11-27T02:11:25", itemView.getContext()));
         } catch (Exception e) {
             e.printStackTrace();
         }
         try{
-
+            Bitmap bitmap = null;
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            try {
+                bitmap = BitmapFactory.decodeStream(new FileInputStream(violation.getPhotoViolations()[0].getPhoto()), null, options);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            imageView_item_references_foto.setImageBitmap(bitmap);
         } catch (Exception e){
 
         }
