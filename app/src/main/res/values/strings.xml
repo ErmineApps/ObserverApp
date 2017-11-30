@@ -18,6 +18,16 @@
     <string name="title_activity_references_list">ReferencesListActivity</string>
     <string name="title_activity_add_label">Map</string>
     <string name="title_activity_profile">Профиль</string>
+
+    <string name="profile_change_the_name">изменить имя</string>
+    <string name="profile_make_a_new_photo">сделать новое фото</string>
+    <string name="profile_choose_a_photo_from_the_gallery">выбрать фото из галереи</string>
+    <string name="profile_mail">почта</string>
+    <string name="profile_phone">телефон</string>
+    <string name="profile_city">город</string>
+    <string name="profile_leave_tags_anonymously">оставлять метки анонимно(не будет указанно ваше имя в обращении)</string>
+
+
     <string name="title_activity_setting">SettingActivity</string>
 
     <string name="alcohol_drinking">распитие алкоголя</string>
@@ -69,8 +79,6 @@
     <string name="add_violation_add_photos">добавьте фото</string>
     <string name="add_violation_add">отправить</string>
     <string name="leave_a_description...">оставте описание...</string>
-
-
 
 
 </resources>
