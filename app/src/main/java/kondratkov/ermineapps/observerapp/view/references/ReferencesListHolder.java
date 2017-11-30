@@ -10,13 +10,12 @@ import android.widget.TextView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import kondratkov.ermineapps.observerapp.R;
 import kondratkov.ermineapps.observerapp.model.Violation;
-import kondratkov.ermineapps.observerapp.representation.DataTimePepresentation;
+import kondratkov.ermineapps.observerapp.representation.DateTimePepresentation;
 import kondratkov.ermineapps.observerapp.representation.TypeViolationToString;
 
 /**
@@ -51,7 +50,7 @@ public class ReferencesListHolder extends RecyclerView.ViewHolder implements Vie
                     TypeViolationToString.typeToString(violation.getType_violation(),
                             itemView.getResources().getStringArray(R.array.array_violations_enum),
                             itemView.getResources().getStringArray(R.array.array_violations)));
-            textView_item_references_date.setText(DataTimePepresentation.dateDisplayFormat("2017-11-27T02:11:25", itemView.getContext()));
+            textView_item_references_date.setText(DateTimePepresentation.dateDisplayFormat("2017-11-27T02:11:25", itemView.getContext()));
         } catch (Exception e) {
             e.printStackTrace();
         }

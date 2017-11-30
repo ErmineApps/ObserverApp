@@ -12,7 +12,7 @@ public class Violation {
     private String User_name;
     private String Address;
     private int Like;
-    private int Dislaid;
+    private int Dislike;
     private String Date;
     private String Type_violation;
     private String Body_observation;
@@ -53,12 +53,12 @@ public class Violation {
         Like = like;
     }
 
-    public int getDislaid() {
-        return Dislaid;
+    public int getDislike() {
+        return Dislike;
     }
 
-    public void setDislaid(int dislaid) {
-        Dislaid = dislaid;
+    public void setDislike(int dislike) {
+        Dislike = dislike;
     }
 
     public String getDate() {
@@ -124,5 +124,7 @@ public class Violation {
     public void setAddress(String address) {
         Address = address;
     }
+
+
 }
 

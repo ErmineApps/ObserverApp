@@ -1,18 +1,21 @@
 package kondratkov.ermineapps.observerapp.view.violation;
 
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,10 +23,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import kondratkov.ermineapps.observerapp.R;
+import kondratkov.ermineapps.observerapp.model.AllComments;
 import kondratkov.ermineapps.observerapp.model.City;
 import kondratkov.ermineapps.observerapp.model.Comment;
 import kondratkov.ermineapps.observerapp.model.LabelsMap;
@@ -32,7 +38,8 @@ import kondratkov.ermineapps.observerapp.model.PhotoViolation;
 import kondratkov.ermineapps.observerapp.model.Region;
 import kondratkov.ermineapps.observerapp.model.User;
 import kondratkov.ermineapps.observerapp.model.Violation;
-import kondratkov.ermineapps.observerapp.representation.DataTimePepresentation;
+import kondratkov.ermineapps.observerapp.representation.Convector_DP_PX;
+import kondratkov.ermineapps.observerapp.representation.DateTimePepresentation;
 import kondratkov.ermineapps.observerapp.representation.DecodeImage;
 import kondratkov.ermineapps.observerapp.representation.TypeViolationToString;
 
@@ -42,6 +49,9 @@ public class ViolationProfileActivity extends AppCompatActivity {
     @BindView(R.id.textView_violation_profile_address)TextView textView_violation_profile_address;
     @BindView(R.id.textView_violation_profile_body)TextView textView_violation_profile_body;
     @BindView(R.id.textView_violation_profile_date)TextView textView_violation_profile_date;
+    @BindView(R.id.textView_violation_profile_number_message)TextView textView_violation_profile_number_message;
+    @BindView(R.id.recyclerView_violation_profile_message)RecyclerView recyclerView_violation_profile_message;
+    @BindView(R.id.scrollView_violation_profile)ScrollView scrollView_violation_profile;
 
     private Violation violation;
     private Toolbar toolbar;
@@ -51,9 +61,10 @@ public class ViolationProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_violation_profile);
+        
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("3333");
+        
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,10 +75,21 @@ public class ViolationProfileActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+
         testCreateViolation();
         testCreatePhoto();
-        displayDataViolation();
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView_violation_profile_message.setLayoutManager(layoutManager);
+
+        displayDataViolation();
+        scrollView_violation_profile.scrollTo(0, 0);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        scrollView_violation_profile.scrollTo(0, 0);
     }
 
     public synchronized void displayDataViolation(){
@@ -77,21 +99,53 @@ public class ViolationProfileActivity extends AppCompatActivity {
                 getResources().getStringArray(R.array.array_violations)));
 
         textView_violation_profile_address.setText(violation.getAddress());
-        textView_violation_profile_date.setText(DataTimePepresentation.dateDisplayFormat(violation.getDate(), this));
+        textView_violation_profile_date.setText(DateTimePepresentation.dateDisplayFormat(violation.getDate(), this));
         textView_violation_profile_body.setText(violation.getBody_observation());
+        textView_violation_profile_number_message.setText("Коменнтарии "+String.valueOf(violation.getMessages().length));
+
+        List<AllComments>messages = new ArrayList<AllComments>();
+        AllComments allComments;
+        for(int i = 0; i<violation.getMessages().length; i++){
+            allComments = new AllComments();
+            allComments.setId(violation.getMessages()[i].getId());
+            allComments.setBody(violation.getMessages()[i].getBody());
+            allComments.setDate(violation.getMessages()[i].getDate());
+            allComments.setLike(violation.getMessages()[i].getLike());
+            allComments.setDislike(violation.getMessages()[i].getDislike());
+            allComments.setUser_name(violation.getMessages()[i].getUser_name());
+            allComments.setTypeMessage(true);
+            messages.add(allComments);
+
+            for(int j=0; j<violation.getMessages()[i].getComments().length; j++){
+                allComments = new AllComments();
+                allComments.setId(violation.getMessages()[i].getComments()[j].getId());
+                allComments.setBody(violation.getMessages()[i].getComments()[j].getBody());
+                allComments.setDate(violation.getMessages()[i].getComments()[j].getDate());
+                allComments.setLike(violation.getMessages()[i].getComments()[j].getLike());
+                allComments.setDislike(violation.getMessages()[i].getComments()[j].getDislike());
+                allComments.setUser_name(violation.getMessages()[i].getComments()[j].getUser_name());
+                allComments.setTypeMessage(false);
+                messages.add(allComments);
+            }
+        }
+
+        ViolationProfileAdapter mViolationProfileAdapter = new ViolationProfileAdapter(getApplicationContext(), messages);
+        recyclerView_violation_profile_message.setAdapter(mViolationProfileAdapter);
+        recyclerView_violation_profile_message.getAdapter().notifyDataSetChanged();
+        scrollView_violation_profile.scrollTo(0, 0);
 
         displayPhoto();
-    }
 
+    }
     public void displayPhoto(){
 
         if(photoViolations==null){
             ImageView imageView = new ImageView(ViolationProfileActivity.this);
             imageView.setImageResource(R.drawable.ic_nophoto);
 
-            ViewGroup.LayoutParams imageViewLayoutParams = new ViewGroup.LayoutParams(dpToPx(150, this), dpToPx(150, this));
+            ViewGroup.LayoutParams imageViewLayoutParams = new ViewGroup.LayoutParams(Convector_DP_PX.dpToPx(150, this), Convector_DP_PX.dpToPx(150, this));
             imageView.setLayoutParams(imageViewLayoutParams);
-            imageView.setPadding(dpToPx(5, this), dpToPx(5, this), dpToPx(5, this), dpToPx(5, this));
+            imageView.setPadding(Convector_DP_PX.dpToPx(5, this), Convector_DP_PX.dpToPx(5, this), Convector_DP_PX.dpToPx(5, this), Convector_DP_PX.dpToPx(5, this));
             linearLayout_violation_profile_image.addView(imageView);
         }else{
             for(int i=0; i<photoViolations.length; i++){
@@ -99,9 +153,9 @@ public class ViolationProfileActivity extends AppCompatActivity {
                 ImageView imageView = new ImageView(ViolationProfileActivity.this);
                 imageView.setImageBitmap(DecodeImage.decodeFileToBitmap(photoViolations[i].getPhoto()));
 
-                ViewGroup.LayoutParams imageViewLayoutParams = new ViewGroup.LayoutParams(dpToPx(150, this), dpToPx(150, this));
+                ViewGroup.LayoutParams imageViewLayoutParams = new ViewGroup.LayoutParams(Convector_DP_PX.dpToPx(150, this), Convector_DP_PX.dpToPx(150, this));
                 imageView.setLayoutParams(imageViewLayoutParams);
-                imageView.setPadding(dpToPx(5, this), dpToPx(5, this), dpToPx(5, this), dpToPx(5, this));
+                imageView.setPadding(Convector_DP_PX.dpToPx(5, this), Convector_DP_PX.dpToPx(5, this), Convector_DP_PX.dpToPx(5, this), Convector_DP_PX.dpToPx(5, this));
 
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -113,6 +167,13 @@ public class ViolationProfileActivity extends AppCompatActivity {
                 linearLayout_violation_profile_image.addView(imageView);
             }
         }
+
+    }
+
+    @OnClick(R.id.textView_violation_profile_addcomment)
+    public void onClick(View view){
+        Intent intent = new Intent(ViolationProfileActivity.this, ViolationAddMessageActivity.class);
+        startActivity(intent);
     }
 
     public void testCreatePhoto(){
@@ -137,13 +198,6 @@ public class ViolationProfileActivity extends AppCompatActivity {
         }
 
     }
-
-    public int dpToPx(int dp, Context context){
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        int px =Math.round(dp *(displayMetrics.xdpi /DisplayMetrics.DENSITY_DEFAULT));
-        return px;
-    }
-
     public void testCreateViolation(){
 
         City city = new City();
@@ -167,11 +221,11 @@ public class ViolationProfileActivity extends AppCompatActivity {
         labelsMap.setViolation_id(0);
         LabelsMap []labelsMaps = {labelsMap};
 
-        Message[] messages = new Message[11];
+        Message[] messages = new Message[7];
         for(int i = 0; i<messages.length; i++){
             Message message = new Message();
             message.setId(i);
-            message.setBody("Просто так и надо все время делать");
+            message.setBody("Просто так и надо все время делать арывлоаод лдоывао шывао шаш щоывоа шщоывшщыао ывлоарр ывагш");
             message.setDate("2017-11-27T02:11:25");
             message.setLike(12);
             message.setUser_name("Vasya");
@@ -186,6 +240,7 @@ public class ViolationProfileActivity extends AppCompatActivity {
                 comments[j]= comment;
             }
             message.setComments(comments);
+            messages[i]=message;
         }
 
             violation = new Violation();

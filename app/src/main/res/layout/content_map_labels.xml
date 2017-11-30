@@ -60,148 +60,155 @@
             android:orientation="vertical"
             android:weightSum="1">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:background="@drawable/obs_add_fon_label"
-                android:orientation="vertical">
+                android:layout_weight="0.2">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp"
-                        >
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <ImageButton
-                                android:id="@+id/imageButton_mapLabel_alcohol_drinking"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:backgroundTint="@color/colorButtonVolationMapYes"
-                                android:onClick="onClickButtonViolation"
-                                mapbox:srcCompat="@drawable/ic_menu_slideshow"/>
-
-                            <ImageButton
-                                android:id="@+id/imageButton_mapLabel_hooliganism"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:backgroundTint="@color/colorButtonVolationMapNo"
-                                android:onClick="onClickButtonViolation"
-                                mapbox:srcCompat="@drawable/ic_menu_share"/>
-
-                            <ImageButton
-                                android:id="@+id/imageButton_mapLabel_fight"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:backgroundTint="@color/colorButtonVolationMapNo"
-                                android:onClick="onClickButtonViolation"
-                                mapbox:srcCompat="@drawable/ic_menu_send"/>
-
-                            <ImageButton
-                                android:id="@+id/imageButton_mapLabel_crime"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:backgroundTint="@color/colorButtonVolationMapNo"
-                                android:onClick="onClickButtonViolation"
-                                mapbox:srcCompat="@drawable/ic_menu_slideshow"/>
-
-                            <ImageButton
-                                android:id="@+id/imageButton_mapLabel_wrong_parking"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:backgroundTint="@color/colorButtonVolationMapNo"
-                                android:onClick="onClickButtonViolation"
-                                mapbox:srcCompat="@drawable/ic_menu_share"/>
-
-                            <ImageButton
-                                android:id="@+id/imageButton_mapLabel_loud_music"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:backgroundTint="@color/colorButtonVolationMapNo"
-                                android:onClick="onClickButtonViolation"
-                                mapbox:srcCompat="@drawable/ic_menu_send"/>
-
-                            <ImageButton
-                                android:id="@+id/imageButton_mapLabel_suspicious_object"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:backgroundTint="@color/colorButtonVolationMapNo"
-                                android:onClick="onClickButtonViolation"
-                                mapbox:srcCompat="@drawable/ic_menu_manage"/>
-
-                            <ImageButton
-                                android:id="@+id/imageButton_mapLabel_vandalism"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:backgroundTint="@color/colorButtonVolationMapNo"
-                                android:onClick="onClickButtonViolation"
-                                mapbox:srcCompat="@drawable/ic_menu_gallery"/>
-
-                            <ImageButton
-                                android:id="@+id/imageButton_mapLabel_other"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:backgroundTint="@color/colorButtonVolationMapNo"
-                                android:onClick="onClickButtonViolation"
-                                mapbox:srcCompat="@drawable/ic_menu_camera"/>
-                        </LinearLayout>
-                    </HorizontalScrollView>
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/textView_mapLabel_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="@string/alcohol_drinking"
-                    android:textColor="@color/colorButtonVolationMapYes"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
-
-                <ScrollView
-                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="10dp">
+                    android:layout_weight="0.2"
+                    android:background="@drawable/obs_add_fon_label"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                        <EditText
-                            android:id="@+id/editText_mapLabel_body"
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp"
+                            >
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <ImageButton
+                                    android:id="@+id/imageButton_mapLabel_alcohol_drinking"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/colorButtonVolationMapYes"
+                                    android:onClick="onClickButtonViolation"
+                                    mapbox:srcCompat="@drawable/ic_menu_slideshow"/>
+
+                                <ImageButton
+                                    android:id="@+id/imageButton_mapLabel_hooliganism"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/colorButtonVolationMapNo"
+                                    android:onClick="onClickButtonViolation"
+                                    mapbox:srcCompat="@drawable/ic_menu_share"/>
+
+                                <ImageButton
+                                    android:id="@+id/imageButton_mapLabel_fight"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/colorButtonVolationMapNo"
+                                    android:onClick="onClickButtonViolation"
+                                    mapbox:srcCompat="@drawable/ic_menu_send"/>
+
+                                <ImageButton
+                                    android:id="@+id/imageButton_mapLabel_crime"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/colorButtonVolationMapNo"
+                                    android:onClick="onClickButtonViolation"
+                                    mapbox:srcCompat="@drawable/ic_menu_slideshow"/>
+
+                                <ImageButton
+                                    android:id="@+id/imageButton_mapLabel_wrong_parking"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/colorButtonVolationMapNo"
+                                    android:onClick="onClickButtonViolation"
+                                    mapbox:srcCompat="@drawable/ic_menu_share"/>
+
+                                <ImageButton
+                                    android:id="@+id/imageButton_mapLabel_loud_music"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/colorButtonVolationMapNo"
+                                    android:onClick="onClickButtonViolation"
+                                    mapbox:srcCompat="@drawable/ic_menu_send"/>
+
+                                <ImageButton
+                                    android:id="@+id/imageButton_mapLabel_suspicious_object"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/colorButtonVolationMapNo"
+                                    android:onClick="onClickButtonViolation"
+                                    mapbox:srcCompat="@drawable/ic_menu_manage"/>
+
+                                <ImageButton
+                                    android:id="@+id/imageButton_mapLabel_vandalism"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/colorButtonVolationMapNo"
+                                    android:onClick="onClickButtonViolation"
+                                    mapbox:srcCompat="@drawable/ic_menu_gallery"/>
+
+                                <ImageButton
+                                    android:id="@+id/imageButton_mapLabel_other"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/colorButtonVolationMapNo"
+                                    android:onClick="onClickButtonViolation"
+                                    mapbox:srcCompat="@drawable/ic_menu_camera"/>
+                            </LinearLayout>
+                        </HorizontalScrollView>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView_mapLabel_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="@string/alcohol_drinking"
+                        android:textColor="@color/colorButtonVolationMapYes"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp">
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@color/common_google_signin_btn_text_dark_default"
-                            android:gravity="top"
-                            android:hint="@string/leave_a_comment..."
-                            android:inputType="textMultiLine"
-                            android:padding="5dp"
-                            android:textSize="15sp"/>
-                    </LinearLayout>
-                </ScrollView>
+                            android:orientation="vertical">
 
-            </LinearLayout>
+                            <EditText
+                                android:id="@+id/editText_mapLabel_body"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/common_google_signin_btn_text_dark_default"
+                                android:gravity="top"
+                                android:hint="@string/leave_a_comment..."
+                                android:inputType="textMultiLine"
+                                android:padding="5dp"
+                                android:textSize="15sp"/>
+                        </LinearLayout>
+                    </ScrollView>
+
+                </LinearLayout>
+
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="100dp"
@@ -211,6 +218,7 @@
                 android:layout_weight="0.8"
                 android:background="@drawable/ic_new_label_map"
                 android:orientation="vertical">
+
             </LinearLayout>
 
         </LinearLayout>

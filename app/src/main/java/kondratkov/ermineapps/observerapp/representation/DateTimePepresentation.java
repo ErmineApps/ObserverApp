@@ -1,21 +1,33 @@
 package kondratkov.ermineapps.observerapp.representation;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import org.joda.time.LocalDateTime;
 import java.util.Date;
 
 /**
- * Created by kondratkov on 26.11.2017.
+ * Created by kondratkov on 28.11.2017.
  */
 
-public class DataTimePepresentation {
+public class DateTimePepresentation {
 
-    public static String getData_ddMMyyyy(@NonNull String dateString1, Context context) throws Exception{
+    public static String getCurrentTime(Context context){
+        String sDate="";
+        Date dateCurrentTime = new LocalDateTime().toDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        sDate = dateFormat.format(dateCurrentTime);
+
+        return sDate;
+    }
+
+    public static String getDate_ddMMyyyy(@NonNull String dateString1, Context context) throws Exception{
 
         String dated = dateString1.substring(0,10)+" "+dateString1.substring(11,19);
 
@@ -28,7 +40,7 @@ public class DataTimePepresentation {
         return mediumDateFormat.format(date);
     }
 
-    public static String getData_HHmm(@NonNull String dateString1, Context context) throws Exception{
+    public static String getDate_HHmm(@NonNull String dateString1, Context context) throws Exception{
 
         String dated = dateString1.substring(0,10)+" "+dateString1.substring(11,19);
 
@@ -106,7 +118,7 @@ public class DataTimePepresentation {
         return date;
     }
 
-    public static String getData_long_HHmm(@NonNull long dateL, Context context) throws Exception{
+    public static String getDate_long_HHmm(@NonNull long dateL, Context context) throws Exception{
         Date date = new Date(dateL);
         java.text.DateFormat mediumDateFormat = DateFormat.getMediumDateFormat(context);
 

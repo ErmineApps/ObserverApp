@@ -13,6 +13,7 @@ import kondratkov.ermineapps.observerapp.view.maplabels.MapLabelsActivity;
 import kondratkov.ermineapps.observerapp.view.profile.ProfileActivity;
 import kondratkov.ermineapps.observerapp.view.references.ReferencesListActivity;
 import kondratkov.ermineapps.observerapp.view.setting.SettingActivity;
+import kondratkov.ermineapps.observerapp.view.violation.ViolationAddMessageActivity;
 
 /**
  * Created by kondratkov on 19.11.2017.
@@ -53,8 +54,10 @@ public class NavigationViewMyApp implements NavigationView.OnNavigationItemSelec
             mAppCompatActivity.startActivity(intent);
             mAppCompatActivity.finish();
         }else if (id == R.id.nav_settings) {
-            Intent intent = new Intent(mAppCompatActivity, SettingActivity.class);
+            //Intent intent = new Intent(mAppCompatActivity, SettingActivity.class);
+            Intent intent = new Intent(mAppCompatActivity, ViolationAddMessageActivity.class);
             mAppCompatActivity.startActivity(intent);
+            //mAppCompatActivity.overridePendingTransition(R.anim.add_activity_translate, R.anim.button_map_hide);
         }
 
         DrawerLayout drawer = (DrawerLayout) mAppCompatActivity.findViewById(R.id.drawer_layout);

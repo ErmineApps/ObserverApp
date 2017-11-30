@@ -12,7 +12,7 @@ public class Message {
     private int User_id;
     private String User_name;
     private int Like;
-    private int Dislaid;
+    private int Dislike;
     private int Violation_id;
     private Comment[] Comments;
 
@@ -56,12 +56,12 @@ public class Message {
         Like = like;
     }
 
-    public int getDislaid() {
-        return Dislaid;
+    public int getDislike() {
+        return Dislike;
     }
 
-    public void setDislaid(int dislaid) {
-        Dislaid = dislaid;
+    public void setDislike(int dislike) {
+        Dislike = dislike;
     }
 
     public int getViolation_id() {

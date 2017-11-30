@@ -1,11 +1,10 @@
 package kondratkov.ermineapps.observerapp.model;
 
 /**
- * Created by kondratkov on 26.11.2017.
+ * Created by kondratkov on 28.11.2017.
  */
 
-public class Comment {
-
+public class AllComments {
     private int Id;
     private int Message_id;
     private String Body;
@@ -14,6 +13,7 @@ public class Comment {
     private String Date;
     private int Like;
     private int Dislike;
+    private boolean TypeMessage;
 
     public int getId() {
         return Id;
@@ -77,5 +77,13 @@ public class Comment {
 
     public void setDislike(int dislike) {
         Dislike = dislike;
+    }
+
+    public boolean isTypeMessage() {
+        return TypeMessage;
+    }
+
+    public void setTypeMessage(boolean typeMessage) {
+        TypeMessage = typeMessage;
     }
 }

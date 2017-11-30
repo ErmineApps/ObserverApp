@@ -14,4 +14,6 @@
     <color name="colorNo">#ec5255</color>
     <color name="colorFonItem">#dedede</color>
 
+    <color name="colorFonTranspaerent">#8c000000</color>
+
 </resources>

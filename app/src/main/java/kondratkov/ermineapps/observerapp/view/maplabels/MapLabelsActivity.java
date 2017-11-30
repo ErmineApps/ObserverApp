@@ -3,16 +3,25 @@ package kondratkov.ermineapps.observerapp.view.maplabels;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.PointF;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -32,12 +41,16 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -47,7 +60,25 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
+import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
+import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
+import com.mapbox.mapboxsdk.style.sources.Source;
+import com.mapbox.services.android.telemetry.location.LocationEngineListener;
+import com.mapbox.services.commons.geojson.Feature;
+import com.mapbox.services.commons.geojson.FeatureCollection;
+import com.mapbox.services.commons.geojson.Point;
+import com.mapbox.services.commons.models.Position;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,19 +89,35 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import kondratkov.ermineapps.observerapp.MyApplication;
 import kondratkov.ermineapps.observerapp.R;
-import kondratkov.ermineapps.observerapp.view.addlabel.AddLabelActivity;
+import kondratkov.ermineapps.observerapp.model.LabelsMap;
+import kondratkov.ermineapps.observerapp.model.Violation;
+import kondratkov.ermineapps.observerapp.representation.Convector_DP_PX;
+import kondratkov.ermineapps.observerapp.representation.DateTimePepresentation;
+import kondratkov.ermineapps.observerapp.representation.DecodeImage;
+import kondratkov.ermineapps.observerapp.representation.JsonToAddress;
+import kondratkov.ermineapps.observerapp.view.addviolation.AddViolationActivity;
+import kondratkov.ermineapps.observerapp.view.violation.ViolationProfileActivity;
 
 public class MapLabelsActivity extends AppCompatActivity {
 
     private MapView mapView;
-    MyPositionLocation mMyPositionLocation;
-    ValueAnimator mAnimator;
+    private MapboxMap mapboxMap;
+    private boolean markerSelected = false;
+
+    private MyPositionLocation mMyPositionLocation;
+    private ValueAnimator mAnimator;
+
+    private double latitude_old = 0;
+    private double longitude_old = 0;
 
     private boolean FAB_Status = false;
-    Animation anim_show_fab, anim_show_buttons;
-    Animation anim_hide_fab, anim_hide_buttons;
-    ImageButton[] mImageButtonArray;
+    private Animation anim_show_fab, anim_show_buttons;
+    private Animation anim_hide_fab, anim_hide_buttons;
+    private ImageButton[] mImageButtonArray;
 
+    private Violation new_violation;
+
+    LinearLayout linearLayout_dialog_add_violation_image;
 
     @BindView(R.id.linearLayout_mapLabel_add)LinearLayout linearLayout_mapLabel_add;
     @BindView(R.id.fab_mapLabel) FloatingActionButton fab_mapLabel;
@@ -101,6 +148,9 @@ public class MapLabelsActivity extends AppCompatActivity {
 
         MyApplication.getInstance().getNavigationViewMyApp().setAppCompatActivity(MapLabelsActivity.this);
 
+        new_violation = new Violation();
+        new_violation.setType_violation(getResources().getStringArray(R.array.array_violations_enum)[0]);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -111,6 +161,8 @@ public class MapLabelsActivity extends AppCompatActivity {
                 imageButton_mapLabel_crime, imageButton_mapLabel_wrong_parking, imageButton_mapLabel_loud_music, imageButton_mapLabel_suspicious_object,
                 imageButton_mapLabel_vandalism, imageButton_mapLabel_other};
 
+
+
         Mapbox.getInstance(this, getString(R.string.token_map));
 
         mMyPositionLocation = new MyPositionLocation(MapLabelsActivity.this);
@@ -119,9 +171,12 @@ public class MapLabelsActivity extends AppCompatActivity {
 
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
+
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
-            public void onMapReady(MapboxMap mapboxMap) {
+            public void onMapReady(MapboxMap mMapboxMap) {
+
+                mapboxMap = mMapboxMap;
                 mapboxMap.setStyle(Style.MAPBOX_STREETS);
 
                 CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -133,7 +188,23 @@ public class MapLabelsActivity extends AppCompatActivity {
                 // Move the camera to that position
                 mapboxMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-                mapboxMap.addMarker(new MarkerOptions().position(new LatLng(48.13863, 11.57603)).title("ddDDD").snippet("wwwwwww"));
+                mapboxMap.setOnCameraChangeListener(new MapboxMap.OnCameraChangeListener() {
+                    @Override
+                    public void onCameraChange(CameraPosition position) {
+                        LatLng latLng = position.target;
+
+                        if(Math.abs(latitude_old - latLng.getLatitude())>0.0002 || Math.abs(longitude_old - latLng.getLongitude())>0.0002 ){
+                            latitude_old = latLng.getLatitude();
+                            longitude_old = latLng.getLongitude();
+
+                            //new FileReadTask().execute();
+                        }
+                    }
+                });
+
+                mapboxMap.addMarker(new MarkerOptions().position(new LatLng(mMyPositionLocation.onGetMyLocation().getLatitude(),
+                        mMyPositionLocation.onGetMyLocation().getLongitude())).title("ddDDD").snippet("wwwwwww"));
+
             }
         });
 
@@ -163,16 +234,37 @@ public class MapLabelsActivity extends AppCompatActivity {
                     }
                 }
         );
-
     }
+
+
 
     @OnClick(R.id.fab_mapLabel)
     public void onClickFab(View view){
         expand();
     }
 
+    @OnClick(R.id.fab_mapLabel_my_position)
+    public void onClickFabPosition(View view){
+        mapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(MapboxMap mapboxMap) {
+                mapboxMap.setStyle(Style.MAPBOX_STREETS);
+
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(new LatLng(mMyPositionLocation.onGetMyLocation().getLatitude(), mMyPositionLocation.onGetMyLocation().getLongitude())) // set the camera's center position
+                        .build();
+
+                // Move the camera to that position
+                mapboxMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                mapboxMap.addMarker(new MarkerOptions().position(new LatLng(mMyPositionLocation.onGetMyLocation().getLatitude(), mMyPositionLocation.onGetMyLocation().getLongitude())).title("ddDDD").snippet("wwwwwww"));
+            }
+        });
+    }
+
     @OnClick(R.id.button_mapLabel_yes)
     public void onClickButtonYes(View view){
+        new FileReadTask().execute();
 
     }
 
@@ -187,16 +279,13 @@ public class MapLabelsActivity extends AppCompatActivity {
             if(view == mImageButtonArray[i]){
                 mImageButtonArray[i].setBackgroundTintList(getResources().getColorStateList(R.color.colorButtonVolationMapYes));
                 textView_mapLabel_type.setText(getResources().getStringArray(R.array.array_violations)[i]);
+                new_violation.setType_violation(getResources().getStringArray(R.array.array_violations_enum)[i]);
             }else{
                 mImageButtonArray[i].setBackgroundTintList(getResources().getColorStateList(R.color.colorButtonVolationMapNo));
             }
         }
     }
 
-//    @OnTextChanged(R.id.editText_mapLabel_body)
-//    public void onTextChangedBody(View view){
-//        Log.d("qwerty", "int "+ editText_mapLabel_body.length());
-//    }
 
     private void expand() {
         // set Visible
@@ -263,6 +352,23 @@ public class MapLabelsActivity extends AppCompatActivity {
         return animator;
     }
 
+    private void addDataViolation(String address){
+        new_violation.setBody_observation(String.valueOf(editText_mapLabel_body.getText()));
+        new_violation.setAddress(JsonToAddress.getAddress(address));
+        new_violation.setDate(DateTimePepresentation.getCurrentTime(this));
+        LabelsMap labelsMap = new LabelsMap();
+        labelsMap.setDate_creation(DateTimePepresentation.getCurrentTime(this));
+        labelsMap.setLatitude(latitude_old);
+        labelsMap.setLongitude(longitude_old);
+        LabelsMap[]labelsMaps = {labelsMap};
+        new_violation.setLabelsMaps(labelsMaps);
+
+        MyApplication.getInstance().setViolation(new_violation);
+
+        Intent intent = new Intent(MapLabelsActivity.this, AddViolationActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -277,6 +383,13 @@ public class MapLabelsActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mapView.onStart();
+
+        if(MyApplication.getInstance().isNewViolationNewActivity()){
+            MyApplication.getInstance().setNewViolationNewActivity(false);
+            Intent intent = new Intent(MapLabelsActivity.this, MapLabelsActivity.class);
+            startActivity(intent);
+            this.finish();
+        }
     }
 
     @Override
@@ -315,4 +428,60 @@ public class MapLabelsActivity extends AppCompatActivity {
         mapView.onSaveInstanceState(outState);
     }
 
+    private class FileReadTask extends AsyncTask<Void, Void, Void> {
+
+        String textResult;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            URL textUrl;
+
+            try {
+                textUrl = new URL("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude_old  + "," +
+                        longitude_old +"&sensor=false&language=ru");
+
+                BufferedReader bufferReader = new BufferedReader(
+                        new InputStreamReader(textUrl.openStream()));
+
+                String StringBuffer;
+                String stringText = "";
+                while ((StringBuffer = bufferReader.readLine()) != null) {
+                    stringText += StringBuffer;
+                }
+                bufferReader.close();
+
+                textResult = stringText;
+            } catch (MalformedURLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                textResult = e.toString();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                textResult = e.toString();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            //Log.d("qwerty", "OTVET " + textResult);
+            if(textResult!= null) {
+                try {
+                    JSONObject js = new JSONObject(textResult);
+                    if(js.getString("status").equals("OK")){
+                        addDataViolation(textResult);
+                    }
+                    else {
+                        addDataViolation("");
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            super.onPostExecute(result);
+        }
+    }
 }
