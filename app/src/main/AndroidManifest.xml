@@ -83,6 +83,18 @@
             android:screenOrientation="portrait"
             android:theme="@style/ObserverNewTheme">
         </activity>
+        <activity
+            android:name=".view.profile.RegistrationActivity"
+            android:label="@string/title_activity_registration"
+            android:screenOrientation="portrait"
+            android:theme="@style/ObserverNewTheme">
+        </activity>
+        <activity
+            android:name=".view.profile.AuthorizationActivity"
+            android:label="@string/title_activity_authorization"
+            android:screenOrientation="portrait"
+            android:theme="@style/ObserverNewTheme">
+        </activity>
     </application>
 
 </manifest>

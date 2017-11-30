@@ -11,6 +11,8 @@ public class User {
     private String Password;
     private int City_id;
     private String Email;
+    private String CityName;
+    private String Token="";
 
     private City Cities;
 
@@ -60,5 +62,21 @@ public class User {
 
     public void setCities(City cities) {
         Cities = cities;
+    }
+
+    public String getCityName() {
+        return CityName;
+    }
+
+    public void setCityName(String cityName) {
+        CityName = cityName;
+    }
+
+    public String getToken() {
+        return Token;
+    }
+
+    public void setToken(String token) {
+        Token = token;
     }
 }

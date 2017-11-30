@@ -8,117 +8,140 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="kondratkov.ermineapps.observerapp.view.profile.ProfileActivity"
     tools:showIn="@layout/app_bar_profile"
-    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteY="89dp"
     tools:layout_editor_absoluteX="0dp">
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="0dp"
-        android:layout_height="147dp"
-        app:srcCompat="@mipmap/ic_launcher_round"
-        app:layout_constraintRight_toLeftOf="@+id/textView10"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/button2"/>
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2"
-        tools:layout_constraintTop_creator="1"
-        android:layout_marginTop="13dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView15"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toRightOf="@+id/textView10"/>
-
-    <Button
-        android:id="@+id/button255"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="106dp"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_constraintRight_creator="1"
-        android:layout_marginEnd="93dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
-        tools:layout_constraintBaseline_creator="1"/>
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Воронеж"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="@+id/textView16"
-        android:layout_marginTop="9dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView16"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/textView16"/>
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="ЛосьХрустальный"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="16dp"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/imageView3"/>
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        android:id="@+id/imageView_profile_user"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_nophoto"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="11dp"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        tools:layout_constraintTop_creator="1"/>
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
+        android:id="@+id/button_profile_close_profile"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintRight_toRightOf="@+id/button2"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="22dp"
-        app:layout_constraintLeft_toLeftOf="@+id/button2"/>
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/colorNo"
+        android:text="выйти из профиля"
+        android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/button3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="121dp"
-        app:layout_constraintLeft_toLeftOf="@+id/button3"/>
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <TextView
+        android:id="@+id/textView_profile_city"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Воронеж"
+        app:layout_constraintLeft_toLeftOf="@+id/textView_profile_name"
+        app:layout_constraintRight_toRightOf="@+id/textView_profile_name"
+        app:layout_constraintTop_toBottomOf="@+id/textView_profile_name"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"/>
+
+    <TextView
+        android:id="@+id/textView_profile_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="павапва пва пва пва вап вап ва пвап ва пва "
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toRightOf="@+id/imageView_profile_user"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1"/>
+
+    <Button
+        android:id="@+id/button_profile_edit_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="51dp"
+        android:backgroundTint="?attr/actionModeSplitBackground"
+        android:text="@string/profile_change_the_name"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_profile_user"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"/>
+
+    <Button
+        android:id="@+id/button_profile_edit_photo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="?attr/actionModeSplitBackground"
+        android:text="@string/profile_make_a_new_photo"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintLeft_toLeftOf="@+id/button_profile_edit_name"
+        app:layout_constraintRight_toRightOf="@+id/button_profile_edit_name"
+        app:layout_constraintTop_toBottomOf="@+id/button_profile_edit_name"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"/>
+
+    <Button
+        android:id="@+id/button_profile_edit_photo_gallery"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="?attr/actionModeSplitBackground"
+        android:text="@string/profile_choose_a_photo_from_the_gallery"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintLeft_toLeftOf="@+id/button_profile_edit_photo"
+        app:layout_constraintRight_toRightOf="@+id/button_profile_edit_photo"
+        app:layout_constraintTop_toBottomOf="@+id/button_profile_edit_photo"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"/>
+
+    <CheckBox
+        android:id="@+id/checkBox_profile_anonym"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:text="@string/profile_leave_tags_anonymously"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="@+id/button_profile_edit_photo_gallery"
+        app:layout_constraintRight_toRightOf="@+id/button_profile_edit_photo_gallery"
+        app:layout_constraintTop_toBottomOf="@+id/button_profile_edit_photo_gallery"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"/>
+
+    <CheckBox
+        android:id="@+id/checkBox_profile_avto"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/avto_sign_in"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_profile_anonym"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"/>
 
 </android.support.constraint.ConstraintLayout>

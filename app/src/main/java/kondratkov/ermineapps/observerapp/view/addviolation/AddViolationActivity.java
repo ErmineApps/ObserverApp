@@ -39,7 +39,9 @@ import butterknife.OnClick;
 import kondratkov.ermineapps.observerapp.MyApplication;
 import kondratkov.ermineapps.observerapp.R;
 import kondratkov.ermineapps.observerapp.representation.Convector_DP_PX;
+import kondratkov.ermineapps.observerapp.representation.TypeViolationToString;
 import kondratkov.ermineapps.observerapp.view.maplabels.MapLabelsActivity;
+import kondratkov.ermineapps.observerapp.view.violation.ViolationProfileActivity;
 
 public class AddViolationActivity extends AppCompatActivity {
 
@@ -87,6 +89,14 @@ public class AddViolationActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddViolationActivity.this.finish();
+            }
+        });
 
         //Animations
         show_fab_1 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab1_show);
@@ -138,6 +148,9 @@ public class AddViolationActivity extends AppCompatActivity {
             }
         });
 
+        textView_add_violation_type.setText(TypeViolationToString.typeToString(MyApplication.getInstance().getViolation().getType_violation(),
+                getResources().getStringArray(R.array.array_violations_enum),
+                getResources().getStringArray(R.array.array_violations)));
         editText_add_violation_body.setText(MyApplication.getInstance().getViolation().getBody_observation());
         editText_add_violation_address.setText(MyApplication.getInstance().getViolation().getAddress());
         editText_add_violation_date.setText(MyApplication.getInstance().getViolation().getDate());
@@ -150,39 +163,16 @@ public class AddViolationActivity extends AppCompatActivity {
 
         ImageView imageView;
         ViewGroup.LayoutParams imageViewLayoutParams;
-        Bitmap bitmap;
+        Bitmap bitmap = null;
 
         switch (requestCode) {
             case CAMERA_RESULT:
-                bitmap = (Bitmap) data.getExtras().get("data");
+                try{
+                    bitmap = (Bitmap) data.getExtras().get("data");
+                }catch (Exception e){}
                 //ImageView ivCamera = (ImageView) findViewById(R.id.iv_camera);
                 //ivCamera.setImageBitmap(thumbnail);
-                imageView = new ImageView(AddViolationActivity.this);
-                imageView.setImageBitmap(bitmap);
-
-                imageViewLayoutParams = new ViewGroup.LayoutParams(Convector_DP_PX.dpToPx(150, this), Convector_DP_PX.dpToPx(150, this));
-                imageView.setLayoutParams(imageViewLayoutParams);
-                imageView.setPadding(Convector_DP_PX.dpToPx(5, this), Convector_DP_PX.dpToPx(5, this), Convector_DP_PX.dpToPx(5, this), Convector_DP_PX.dpToPx(5, this));
-
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(AddViolationActivity.this, "# (123123Long click)", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                linearLayout_add_violation_image.addView(imageView);
-                break;
-            case GALLERY_REQUEST:
-                if (resultCode == RESULT_OK) {
-                    Uri selectedImage = data.getData();
-                    bitmap = null;
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
+                if(bitmap!=null){
                     imageView = new ImageView(AddViolationActivity.this);
                     imageView.setImageBitmap(bitmap);
 
@@ -198,6 +188,34 @@ public class AddViolationActivity extends AppCompatActivity {
                     });
 
                     linearLayout_add_violation_image.addView(imageView);
+                }
+                break;
+            case GALLERY_REQUEST:
+                if (resultCode == RESULT_OK) {
+                    Uri selectedImage = data.getData();
+
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    if(bitmap!=null){
+                        imageView = new ImageView(AddViolationActivity.this);
+                        imageView.setImageBitmap(bitmap);
+
+                        imageViewLayoutParams = new ViewGroup.LayoutParams(Convector_DP_PX.dpToPx(150, this), Convector_DP_PX.dpToPx(150, this));
+                        imageView.setLayoutParams(imageViewLayoutParams);
+                        imageView.setPadding(Convector_DP_PX.dpToPx(5, this), Convector_DP_PX.dpToPx(5, this), Convector_DP_PX.dpToPx(5, this), Convector_DP_PX.dpToPx(5, this));
+
+                        imageView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(AddViolationActivity.this, "# (123123Long click)", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        linearLayout_add_violation_image.addView(imageView);
+                    }
                 }
                 break;
         }

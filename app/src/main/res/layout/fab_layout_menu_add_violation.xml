@@ -9,10 +9,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_compass"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
         android:visibility="invisible"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabSize="mini" />
+        app:backgroundTint="?attr/actionModeSplitBackground"
+        app:fabSize="mini"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_2"
@@ -20,10 +20,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_myplaces"
+        android:src="@android:drawable/ic_menu_camera"
         android:visibility="invisible"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabSize="mini" />
+        app:backgroundTint="?attr/actionModeSplitBackground"
+        app:fabSize="mini"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_3"
@@ -31,9 +31,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_share"
+        android:src="@android:drawable/ic_menu_report_image"
         android:visibility="invisible"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabSize="mini" />
+        app:backgroundTint="?attr/actionModeSplitBackground"
+        app:fabSize="mini"/>
 
 </FrameLayout>

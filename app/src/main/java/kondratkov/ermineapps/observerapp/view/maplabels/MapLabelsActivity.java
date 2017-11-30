@@ -43,6 +43,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -96,6 +97,7 @@ import kondratkov.ermineapps.observerapp.representation.DateTimePepresentation;
 import kondratkov.ermineapps.observerapp.representation.DecodeImage;
 import kondratkov.ermineapps.observerapp.representation.JsonToAddress;
 import kondratkov.ermineapps.observerapp.view.addviolation.AddViolationActivity;
+import kondratkov.ermineapps.observerapp.view.dialogs.AddDialogs;
 import kondratkov.ermineapps.observerapp.view.violation.ViolationProfileActivity;
 
 public class MapLabelsActivity extends AppCompatActivity {
@@ -135,6 +137,7 @@ public class MapLabelsActivity extends AppCompatActivity {
 
     @BindView(R.id.textView_mapLabel_type)TextView textView_mapLabel_type;
     @BindView(R.id.editText_mapLabel_body)EditText editText_mapLabel_body;
+    @BindView(R.id.frameLayout_maplabel)FrameLayout frameLayout_maplabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,10 +149,14 @@ public class MapLabelsActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        overridePendingTransition(R.anim.add_activity_alpha_show, R.anim.add_activity_alpha_hide);
+
         MyApplication.getInstance().getNavigationViewMyApp().setAppCompatActivity(MapLabelsActivity.this);
 
         new_violation = new Violation();
         new_violation.setType_violation(getResources().getStringArray(R.array.array_violations_enum)[0]);
+
+        frameLayout_maplabel.setVisibility(View.GONE);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -240,7 +247,12 @@ public class MapLabelsActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab_mapLabel)
     public void onClickFab(View view){
-        expand();
+        if(MyApplication.getInstance().getUser().getToken().length()==0){
+            AddDialogs.dialog_no_authorization(MapLabelsActivity.this);
+        }else{
+            expand();
+        }
+
     }
 
     @OnClick(R.id.fab_mapLabel_my_position)
@@ -264,8 +276,8 @@ public class MapLabelsActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_mapLabel_yes)
     public void onClickButtonYes(View view){
+        frameLayout_maplabel.setVisibility(View.VISIBLE);
         new FileReadTask().execute();
-
     }
 
     @OnClick(R.id.button_mapLabel_cancel)
@@ -353,6 +365,7 @@ public class MapLabelsActivity extends AppCompatActivity {
     }
 
     private void addDataViolation(String address){
+
         new_violation.setBody_observation(String.valueOf(editText_mapLabel_body.getText()));
         new_violation.setAddress(JsonToAddress.getAddress(address));
         new_violation.setDate(DateTimePepresentation.getCurrentTime(this));
@@ -383,6 +396,9 @@ public class MapLabelsActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mapView.onStart();
+
+        MyApplication.getInstance().getNavigationViewMyApp().setAppCompatActivity(MapLabelsActivity.this);
+        frameLayout_maplabel.setVisibility(View.GONE);
 
         if(MyApplication.getInstance().isNewViolationNewActivity()){
             MyApplication.getInstance().setNewViolationNewActivity(false);
@@ -436,6 +452,7 @@ public class MapLabelsActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
 
             URL textUrl;
+
 
             try {
                 textUrl = new URL("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude_old  + "," +

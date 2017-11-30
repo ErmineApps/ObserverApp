@@ -28,6 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import kondratkov.ermineapps.observerapp.MyApplication;
 import kondratkov.ermineapps.observerapp.R;
 import kondratkov.ermineapps.observerapp.model.AllComments;
 import kondratkov.ermineapps.observerapp.model.City;
@@ -42,6 +43,8 @@ import kondratkov.ermineapps.observerapp.representation.Convector_DP_PX;
 import kondratkov.ermineapps.observerapp.representation.DateTimePepresentation;
 import kondratkov.ermineapps.observerapp.representation.DecodeImage;
 import kondratkov.ermineapps.observerapp.representation.TypeViolationToString;
+import kondratkov.ermineapps.observerapp.view.dialogs.AddDialogs;
+import kondratkov.ermineapps.observerapp.view.maplabels.MapLabelsActivity;
 
 public class ViolationProfileActivity extends AppCompatActivity {
 
@@ -172,8 +175,14 @@ public class ViolationProfileActivity extends AppCompatActivity {
 
     @OnClick(R.id.textView_violation_profile_addcomment)
     public void onClick(View view){
-        Intent intent = new Intent(ViolationProfileActivity.this, ViolationAddMessageActivity.class);
-        startActivity(intent);
+
+        if(MyApplication.getInstance().getUser().getToken().length()==0){
+            AddDialogs.dialog_no_authorization(ViolationProfileActivity.this);
+        }else{
+            Intent intent = new Intent(ViolationProfileActivity.this, ViolationAddMessageActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     public void testCreatePhoto(){

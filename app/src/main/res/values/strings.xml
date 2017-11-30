@@ -13,9 +13,9 @@
     <string name="menu_settings">настройки</string>
     <string name="menu_other">другое</string>
 
-    <string name="title_activity_map_labels">MapLabelsActivity</string>
+    <string name="title_activity_map_labels">Cозерцатель</string>
     <string name="token_map">pk.eyJ1Ijoia29uZHJhdGtvdiIsImEiOiJjamE3ZzFtY3hiMGx0MnFsZzVvbnJhbmRkIn0.IM6EXYHiivmo8_mxz40YFw</string>
-    <string name="title_activity_references_list">ReferencesListActivity</string>
+    <string name="title_activity_references_list">Обращения</string>
     <string name="title_activity_add_label">Map</string>
     <string name="title_activity_profile">Профиль</string>
 
@@ -28,7 +28,7 @@
     <string name="profile_leave_tags_anonymously">оставлять метки анонимно(не будет указанно ваше имя в обращении)</string>
 
 
-    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_setting">Настройки</string>
 
     <string name="alcohol_drinking">распитие алкоголя</string>
     <string name="hooliganism">хулиганство</string>
@@ -65,12 +65,25 @@
     </string-array>
 
     <string name="ok">принять</string>
+    <string name="change">изменить</string>
     <string name="cancel">отмена</string>
+    <string name="sign_in">войти</string>
+    <string name="registration">регистрация</string>
+    <string name="sign_up">зарегестрироваться</string>
+    <string name="name">введите имя</string>
+    <string name="avto_sign_in">автоматически входить в систему</string>
+    <string name="save_name">сохранить имя и пароль</string>
+
+    <string name="enter_name">введите новое имя</string>
+    <string name="enter_password">введите пароль</string>
+    <string name="post_password">повторите пароль</string>
+    <string name="add_city">введите ваш город</string>
+    <string name="dialog_no_sign">Для добовления метки или комментария необходимо авторизоваться! Зайдите в свой профиль!</string>
 
     <string name="leave_a_comment...">оставте комментарий....</string>
     <string name="title_activity_violation_profile">ViolationProfileActivity</string>
     <string name="title_activity_image_violation">ImageViolationActivity</string>
-    <string name="title_activity_add_violation">AddViolationActivity</string>
+    <string name="title_activity_add_violation">Добавить метку</string>
 
 
     <string name="add_violation_body">описание</string>
@@ -79,6 +92,7 @@
     <string name="add_violation_add_photos">добавьте фото</string>
     <string name="add_violation_add">отправить</string>
     <string name="leave_a_description...">оставте описание...</string>
-
+    <string name="title_activity_registration">Регистрация</string>
+    <string name="title_activity_authorization">Aвторизация</string>
 
 </resources>
