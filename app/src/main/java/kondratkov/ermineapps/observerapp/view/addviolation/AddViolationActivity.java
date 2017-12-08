@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -25,6 +26,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,10 +41,24 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kondratkov.ermineapps.observerapp.MyApplication;
 import kondratkov.ermineapps.observerapp.R;
+import kondratkov.ermineapps.observerapp.api.ApiInterface;
+import kondratkov.ermineapps.observerapp.api.Controller;
+import kondratkov.ermineapps.observerapp.model.LabelsMap;
+import kondratkov.ermineapps.observerapp.model.Message;
+import kondratkov.ermineapps.observerapp.model.User;
+import kondratkov.ermineapps.observerapp.model.Violation;
 import kondratkov.ermineapps.observerapp.representation.Convector_DP_PX;
 import kondratkov.ermineapps.observerapp.representation.TypeViolationToString;
 import kondratkov.ermineapps.observerapp.view.maplabels.MapLabelsActivity;
+import kondratkov.ermineapps.observerapp.view.profile.AuthorizationActivity;
 import kondratkov.ermineapps.observerapp.view.violation.ViolationProfileActivity;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class AddViolationActivity extends AppCompatActivity {
 
@@ -79,6 +96,8 @@ public class AddViolationActivity extends AppCompatActivity {
     Animation show_fab_3;
     Animation hide_fab_3;
 
+    private static ApiInterface mApiInterface;
+    private Violation violation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +175,9 @@ public class AddViolationActivity extends AppCompatActivity {
         editText_add_violation_date.setText(MyApplication.getInstance().getViolation().getDate());
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        mApiInterface = Controller.getApi();
+        violation = new Violation();
     }
 
     @Override
@@ -233,8 +255,70 @@ public class AddViolationActivity extends AppCompatActivity {
         MyApplication.getInstance().getViolation().setBody_observation(String.valueOf(editText_add_violation_body.getText()));
         MyApplication.getInstance().getViolation().setAddress(String.valueOf(editText_add_violation_address.getText()));
         MyApplication.getInstance().getViolation().setDate(String.valueOf(editText_add_violation_date.getText()));
+        Message [] message= {};
+        LabelsMap [] labelsMaps = {};
+        MyApplication.getInstance().getViolation().setMessages(message);
+        MyApplication.getInstance().getViolation().setLabelsMaps(labelsMaps);
+
         MyApplication.getInstance().setNewViolationNewActivity(true);
-        this.finish();
+
+        Gson gson = new Gson();
+        String ssd = gson.toJson(MyApplication.getInstance().getViolation());
+
+        onRequest();
+
+    }
+
+    public void onRequest(){
+        mApiInterface.postViolations(MyApplication.getInstance().getViolation()).enqueue(new Callback<Violation>() {
+            @Override
+            public void onResponse(Call<Violation> call, retrofit2.Response<Violation> response) {
+                String s = String.valueOf(response.body());
+                int is = response.code();
+                if(response.code()>199 && response.code()<300 && response.body()!=null){
+                    final Violation violation = response.body();
+                    Toast.makeText(AddViolationActivity.this, "M2222ka ust!", Toast.LENGTH_SHORT).show();
+                    MyApplication.getInstance().getLabelsMap().setViolation_id(violation.getId());
+                    MyApplication.getInstance().getLabelsMap().setCity_id(1);
+
+                    Gson gson = new Gson();
+                    String ssd = gson.toJson(MyApplication.getInstance().getLabelsMap());
+
+                    onRequestLabelMap();
+                }else{
+                    //frameLayout_authorization.setVisibility(View.GONE);
+                    Toast.makeText(AddViolationActivity.this, "ошибка связи!", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Violation>call, Throwable t) {
+                //frameLayout_authorization.setVisibility(View.GONE);
+                Toast.makeText(AddViolationActivity.this, "ошибка связи!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void onRequestLabelMap(){
+        mApiInterface.PostLabelsMap(MyApplication.getInstance().getLabelsMap()).enqueue(new Callback<LabelsMap>() {
+            @Override
+            public void onResponse(Call<LabelsMap> call, retrofit2.Response<LabelsMap> response) {
+                String s = String.valueOf(response.body());
+                int is = response.code();
+                if(response.code()>199 && response.code()<300 && response.body()!=null){
+                    final LabelsMap labelsMap = response.body();
+                    Toast.makeText(AddViolationActivity.this, "Metkka ust!", Toast.LENGTH_SHORT).show();
+                    AddViolationActivity.this.finish();
+                }else{
+                    //frameLayout_authorization.setVisibility(View.GONE);
+                    Toast.makeText(AddViolationActivity.this, "ошибка связи!", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<LabelsMap>call, Throwable t) {
+                //frameLayout_authorization.setVisibility(View.GONE);
+                Toast.makeText(AddViolationActivity.this, "ошибка связи!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void expandFAB() {

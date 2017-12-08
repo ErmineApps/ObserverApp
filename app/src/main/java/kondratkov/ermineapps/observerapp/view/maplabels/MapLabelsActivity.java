@@ -369,13 +369,14 @@ public class MapLabelsActivity extends AppCompatActivity {
         new_violation.setBody_observation(String.valueOf(editText_mapLabel_body.getText()));
         new_violation.setAddress(JsonToAddress.getAddress(address));
         new_violation.setDate(DateTimePepresentation.getCurrentTime(this));
+        new_violation.setUser_id(MyApplication.getInstance().getUser().getId());
+        new_violation.setUser_name(MyApplication.getInstance().getUser().getName());
         LabelsMap labelsMap = new LabelsMap();
         labelsMap.setDate_creation(DateTimePepresentation.getCurrentTime(this));
         labelsMap.setLatitude(latitude_old);
         labelsMap.setLongitude(longitude_old);
-        LabelsMap[]labelsMaps = {labelsMap};
-        new_violation.setLabelsMaps(labelsMaps);
 
+        MyApplication.getInstance().setLabelsMap(labelsMap);
         MyApplication.getInstance().setViolation(new_violation);
 
         Intent intent = new Intent(MapLabelsActivity.this, AddViolationActivity.class);

@@ -1,5 +1,7 @@
 package kondratkov.ermineapps.observerapp.model;
 
+import java.io.File;
+
 /**
  * Created by kondratkov on 26.11.2017.
  */
@@ -15,6 +17,7 @@ public class Message {
     private int Dislike;
     private int Violation_id;
     private Comment[] Comments;
+    private File Photo;
 
     public int getId() {
         return Id;
@@ -86,5 +89,13 @@ public class Message {
 
     public void setUser_name(String user_name) {
         User_name = user_name;
+    }
+
+    public File getPhoto() {
+        return Photo;
+    }
+
+    public void setPhoto(File photo) {
+        Photo = photo;
     }
 }

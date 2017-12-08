@@ -3,8 +3,10 @@ package kondratkov.ermineapps.observerapp.view.profile;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -39,11 +41,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kondratkov.ermineapps.observerapp.MyApplication;
 import kondratkov.ermineapps.observerapp.R;
+import kondratkov.ermineapps.observerapp.api.ApiInterface;
+import kondratkov.ermineapps.observerapp.api.Controller;
 import kondratkov.ermineapps.observerapp.model.PhotoViolation;
 import kondratkov.ermineapps.observerapp.model.User;
 import kondratkov.ermineapps.observerapp.representation.Convector_DP_PX;
 import kondratkov.ermineapps.observerapp.view.addviolation.AddViolationActivity;
 import kondratkov.ermineapps.observerapp.view.maplabels.MapLabelsActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -56,6 +62,8 @@ public class ProfileActivity extends AppCompatActivity {
     static final int GALLERY_REQUEST = 1;
     static final int CAMERA_RESULT = 2;
 
+    private static ApiInterface mApiInterface;
+
     public SharedPreferences sPref;
 
     @Override
@@ -67,6 +75,8 @@ public class ProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         overridePendingTransition(R.anim.add_activity_alpha_show, R.anim.add_activity_alpha_hide);
+
+        mApiInterface = Controller.getApi();
 
         ButterKnife.bind(this);
         sPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -141,6 +151,8 @@ public class ProfileActivity extends AppCompatActivity {
             case CAMERA_RESULT:
                 try{
                     bitmap = (Bitmap) data.getExtras().get("data");
+
+                    //MyApplication.getInstance().getUser().setPhoto(data.getExtras().get("data"));
                 }catch (Exception e){}
 
                 if(bitmap!=null){
@@ -155,10 +167,28 @@ public class ProfileActivity extends AppCompatActivity {
                         }
                     });
                 }
+
                 break;
             case GALLERY_REQUEST:
                 if (resultCode == RESULT_OK) {
                     Uri selectedImage = data.getData();
+//                    String imagePath;
+//                    String[] imgData = {MediaStore.Images.Media.DATA};
+//
+//                    Cursor imgCursor = getApplicationContext().getContentResolver()
+//                            .query(selectedImage, imgData, null, null, null);
+//                    if (imgCursor != null) {
+//                        int index = imgCursor
+//                                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//                        imgCursor.moveToFirst();
+//                        imagePath = imgCursor.getString(index);
+//                        imgCursor.close();
+//                    } else
+//                        imagePath = selectedImage.getPath();
+//
+//                    File file  = new File(imagePath);
+//                    MyApplication.getInstance().getUser().setPhoto(file);
+
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
                     } catch (Exception e) {
@@ -177,6 +207,7 @@ public class ProfileActivity extends AppCompatActivity {
                         });
                     }
                 }
+
                 break;
         }
     }
@@ -212,11 +243,41 @@ public class ProfileActivity extends AppCompatActivity {
                 }else if(String.valueOf(editText_dialog_new_name_password.getText()).replaceAll(" ", "").length()==0){
                     Toast.makeText(ProfileActivity.this, "Введите пароль", Toast.LENGTH_SHORT).show();
                 }else{
+                    MyApplication.getInstance().getUser().setName(String.valueOf(editText_dialog_new_name_name.getText()));
+                    onRequest();
                     dialog.dismiss();
                 }
             }
         });
         dialog.show();
+    }
+
+    public void onRequest(){
+        mApiInterface.putUser(MyApplication.getInstance().getUser().getToken(), MyApplication.getInstance().getUser()).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, retrofit2.Response<User> response) {
+                String s = String.valueOf(response.body());
+                int is = response.code();
+                if(response.code()>199 && response.code()<300 && response.body()!=null){
+                    final User user = response.body();
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    });
+                }else{
+
+                    //Toast.makeText(AuthorizationActivity.this, "ошибка связи!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<User>call, Throwable t) {
+
+                //Toast.makeText(AuthorizationActivity.this, "ошибка связи!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

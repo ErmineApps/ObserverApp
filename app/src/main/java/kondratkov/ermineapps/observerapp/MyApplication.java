@@ -2,6 +2,7 @@ package kondratkov.ermineapps.observerapp;
 
 import android.app.Application;
 
+import kondratkov.ermineapps.observerapp.model.LabelsMap;
 import kondratkov.ermineapps.observerapp.model.User;
 import kondratkov.ermineapps.observerapp.model.Violation;
 import kondratkov.ermineapps.observerapp.view.navigation.NavigationViewMyApp;
@@ -14,6 +15,7 @@ public class MyApplication extends Application {
 
     private NavigationViewMyApp mNavigationViewMyApp;
     private Violation mViolation;
+    private LabelsMap mLabelsMap;
     private boolean newViolationNewActivity = false;
     private User mUser;
 
@@ -69,5 +71,13 @@ public class MyApplication extends Application {
 
     public void setUser(User user) {
         mUser = user;
+    }
+
+    public LabelsMap getLabelsMap() {
+        return mLabelsMap;
+    }
+
+    public void setLabelsMap(LabelsMap labelsMap) {
+        mLabelsMap = labelsMap;
     }
 }

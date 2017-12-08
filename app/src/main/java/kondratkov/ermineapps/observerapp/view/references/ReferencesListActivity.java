@@ -45,6 +45,8 @@ public class ReferencesListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_references_list);
 
+        overridePendingTransition(R.anim.add_activity_alpha_show, R.anim.add_activity_alpha_hide);
+
         ButterKnife.bind(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

@@ -1,18 +1,29 @@
 package kondratkov.ermineapps.observerapp.model;
 
+import com.google.gson.annotations.Expose;
+
+import java.io.File;
+
 /**
  * Created by kondratkov on 26.11.2017.
  */
 
 public class User {
-
+    //@SerializedName("Users")
+    @Expose
     private int Id;
+    @Expose
     private String Name;
+    @Expose
     private String Password;
-    private int City_id;
+    @Expose
     private String Email;
+    @Expose
     private String CityName;
+    @Expose
     private String Token="";
+    @Expose
+    private int Photo;
 
     private City Cities;
 
@@ -38,14 +49,6 @@ public class User {
 
     public void setPassword(String password) {
         Password = password;
-    }
-
-    public int getCity_id() {
-        return City_id;
-    }
-
-    public void setCity_id(int city_id) {
-        City_id = city_id;
     }
 
     public String getEmail() {
@@ -78,5 +81,13 @@ public class User {
 
     public void setToken(String token) {
         Token = token;
+    }
+
+    public int getPhoto() {
+        return Photo;
+    }
+
+    public void setPhoto(int photo) {
+        Photo = photo;
     }
 }

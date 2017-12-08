@@ -18,11 +18,17 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import kondratkov.ermineapps.observerapp.R;
+import kondratkov.ermineapps.observerapp.api.ApiInterface;
+import kondratkov.ermineapps.observerapp.api.Controller;
+import kondratkov.ermineapps.observerapp.model.Violation;
 
 public class ViolationAddMessageActivity extends AppCompatActivity {
 
     @BindView(R.id.editText_add_message)EditText editText_add_message;
     @BindView(R.id.imageButton_add_message)ImageButton imageButton_add_message;
+
+    private static ApiInterface mApiInterface;
+    Violation violation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +38,9 @@ public class ViolationAddMessageActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         ButterKnife.bind(this);
+
+        mApiInterface = Controller.getApi();
+        violation = new Violation();
 
         editText_add_message.addTextChangedListener(new TextWatcher() {
             @Override

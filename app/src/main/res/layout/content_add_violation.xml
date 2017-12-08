@@ -15,16 +15,17 @@
         android:id="@+id/textView_add_violation_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginTop="7dp"
         android:text="ДРАКА"
         android:textColor="?attr/actionMenuTextColor"
-        android:textSize="20sp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="25sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        android:layout_marginTop="7dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintTop_toTopOf="parent"/>
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1"/>
 
     <ScrollView
         android:layout_width="0dp"
